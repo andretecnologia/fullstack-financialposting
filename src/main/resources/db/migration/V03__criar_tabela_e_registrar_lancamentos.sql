@@ -7,10 +7,11 @@ CREATE TABLE lancamento (
 	observacao VARCHAR(100),
 	tipo VARCHAR(20) NOT NULL,
 	codigo_categoria BIGINT(20) NOT NULL,
-	codigo_pessoa BIGINT(20) NOT NULL,
-	FOREIGN KEY (codigo_categoria) REFERENCES categoria(codigo),
-	FOREIGN KEY (codigo_pessoa) REFERENCES pessoa(codigo)
+	codigo_pessoa BIGINT(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE lancamento ADD CONSTRAINT fk_lancamento_categoria FOREIGN KEY (codigo_categoria) REFERENCES categoria(codigo);
+ALTER TABLE lancamento ADD CONSTRAINT fk_lancamento_pessoa FOREIGN KEY (codigo_pessoa) REFERENCES pessoa(codigo);
 
 INSERT INTO lancamento (descricao, data_vencimento, data_pagamento, valor, observacao, tipo, codigo_categoria, codigo_pessoa) values ('Salário mensal', '2020-01-27', null, 6500.00, 'Distribuição de lucros', 'RECEITA', 1, 1);
 INSERT INTO lancamento (descricao, data_vencimento, data_pagamento, valor, observacao, tipo, codigo_categoria, codigo_pessoa) values ('Supermercado', '2020-01-10', '2018-03-01', 100.32, null, 'DESPESA', 2, 2);

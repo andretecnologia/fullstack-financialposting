@@ -50,11 +50,17 @@ public class Lancamento {
 	@JoinColumn(name = "codigo_categoria")
 	private Categoria categoria;
 
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "codigo_recorrencia")
+	private Recorrencia recorrencia;
+
 	@JsonIgnoreProperties("contatos")
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_pessoa")
 	private Pessoa pessoa;
+
 	
 	@JsonIgnore
 	public boolean isReceita() {
@@ -123,6 +129,14 @@ public class Lancamento {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Recorrencia getRecorrencia() {
+		return recorrencia;
+	}
+
+	public void setRecorrencia(Recorrencia recorrencia) {
+		this.recorrencia = recorrencia;
 	}
 
 	public Pessoa getPessoa() {

@@ -31,14 +31,13 @@ INSERT INTO estado (codigo, nome) VALUES(25, 'Sergipe');
 INSERT INTO estado (codigo, nome) VALUES(26, 'São Paulo');
 INSERT INTO estado (codigo, nome) VALUES(27, 'Tocantins');
 
-
-
 CREATE TABLE cidade (
 	codigo BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50) NOT NULL,
-  codigo_estado BIGINT(20) NOT NULL,
-  FOREIGN KEY (codigo_estado) REFERENCES estado(codigo)
+  codigo_estado BIGINT(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE cidade ADD CONSTRAINT fk_cidade_estado FOREIGN KEY (codigo_estado) REFERENCES estado(codigo);
 
 INSERT INTO cidade (codigo, nome, codigo_estado) VALUES (1, 'Belo Horizonte', 11);
 INSERT INTO cidade (codigo, nome, codigo_estado) VALUES (2, 'Uberlândia', 11);
