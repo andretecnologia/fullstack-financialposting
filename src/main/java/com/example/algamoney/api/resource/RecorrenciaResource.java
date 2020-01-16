@@ -32,7 +32,7 @@ public class RecorrenciaResource {
 
     @PostMapping
     public ResponseEntity<Recorrencia> criar(@Valid @RequestBody Recorrencia recorrencia, HttpServletResponse response) {
-        Recorrencia recorrenciaSalva = recorrenciaRepository.save(recorrencia);
+        Recorrencia recorrenciaSalva = recorrenciaService.salvar(recorrencia);
         publisher.publishEvent(new RecursoCriadoEvent(this, response, recorrenciaSalva.getCodigo()));
         return ResponseEntity.status(HttpStatus.CREATED).body(recorrenciaSalva);
     }

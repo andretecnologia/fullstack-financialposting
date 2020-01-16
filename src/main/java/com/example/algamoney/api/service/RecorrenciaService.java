@@ -1,3 +1,4 @@
+
 package com.example.algamoney.api.service;
 
 import com.example.algamoney.api.model.Recorrencia;
@@ -14,6 +15,7 @@ public class RecorrenciaService {
     private RecorrenciaRepository recorrenciaRepository;
 
     public Recorrencia salvar(Recorrencia recorrencia) {
+
         return recorrenciaRepository.save(recorrencia);
     }
 
