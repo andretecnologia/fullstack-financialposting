@@ -8,4 +8,8 @@ import com.example.algamoney.api.model.Pessoa;
 
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     public Page<Pessoa> findByNomeContaining( String nome, Pageable pageable);
+
+    public Pessoa findById(Long id);
+
+    public Pessoa findOne(Long id);
 }

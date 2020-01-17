@@ -14,6 +14,10 @@ public class Cidade {
 	private Long codigo;
 	
 	private String nome;
+
+	public Cidade(String cidade){
+		this.nome = cidade;
+	}
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_estado")

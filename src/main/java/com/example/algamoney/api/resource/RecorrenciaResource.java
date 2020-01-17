@@ -1,5 +1,6 @@
 package com.example.algamoney.api.resource;
 
+import com.example.algamoney.api.dto.RecorrenciaDTO;
 import com.example.algamoney.api.event.RecursoCriadoEvent;
 import com.example.algamoney.api.model.Recorrencia;
 import com.example.algamoney.api.repository.RecorrenciaRepository;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.example.algamoney.api.adapter.RecorrenciaAdapter.transformToDTO;
+import static com.example.algamoney.api.adapter.RecorrenciaAdapter.transformToModel;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/recorrencias")
@@ -31,10 +35,10 @@ public class RecorrenciaResource {
     private ApplicationEventPublisher publisher;
 
     @PostMapping
-    public ResponseEntity<Recorrencia> criar(@Valid @RequestBody Recorrencia recorrencia, HttpServletResponse response) {
-        Recorrencia recorrenciaSalva = recorrenciaService.salvar(recorrencia);
+    public ResponseEntity<RecorrenciaDTO> criar(@Valid @RequestBody RecorrenciaDTO dto, HttpServletResponse response) {
+        Recorrencia recorrenciaSalva = recorrenciaService.salvar(transformToModel(dto));
         publisher.publishEvent(new RecursoCriadoEvent(this, response, recorrenciaSalva.getCodigo()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(recorrenciaSalva);
+        return ResponseEntity.status(HttpStatus.CREATED).body(transformToDTO(recorrenciaSalva));
     }
 
     @GetMapping

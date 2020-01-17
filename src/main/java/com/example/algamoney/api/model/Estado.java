@@ -7,11 +7,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "estado")
 public class Estado {
-	
+
 	@Id
 	private Long codigo;
 	
 	private String nome;
+
+	public Estado(String sigla) {
+		this.nome = sigla;
+	}
+
+
 
 	public Long getCodigo() {
 		return codigo;
@@ -28,6 +34,8 @@ public class Estado {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+
 
 	@Override
 	public int hashCode() {
