@@ -17,7 +17,7 @@ public class Estado {
 		this.nome = sigla;
 	}
 
-
+	public Estado(){}
 
 	public Long getCodigo() {
 		return codigo;

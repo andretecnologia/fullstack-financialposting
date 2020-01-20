@@ -12,9 +12,7 @@ import javax.validation.constraints.Size;
 @Builder
 @Data
 public class RecorrenciaDTO {
-
     private Long codigo;
-
     @NotNull
     @Size(min = 3, max = 20)
     private String nome;

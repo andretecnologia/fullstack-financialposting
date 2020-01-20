@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RecorrenciaRepository extends JpaRepository<Recorrencia, Long> {
 
     public Page<Recorrencia> findByNomeContaining(String nome, Pageable pageable);
+    public Recorrencia findByCodigo(Long codigo);
+
 }

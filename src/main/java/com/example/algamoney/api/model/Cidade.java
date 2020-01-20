@@ -18,6 +18,8 @@ public class Cidade {
 	public Cidade(String cidade){
 		this.nome = cidade;
 	}
+
+	public Cidade(){}
 	
 	@ManyToOne
 	@JoinColumn(name = "codigo_estado")
