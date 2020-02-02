@@ -12,22 +12,26 @@ import org.springframework.stereotype.Service;
 public class RecorrenciaService {
 
     @Autowired
-    private RecorrenciaRepository recorrenciaRepository;
+    private RecorrenciaRepository repository;
+
+    public int total(){
+        return repository.total();
+    }
 
     public Recorrencia salvar(Recorrencia recorrencia) {
 
-        return recorrenciaRepository.save(recorrencia);
+        return repository.save(recorrencia);
     }
 
     public Recorrencia atualizar(Long codigo, Recorrencia recorrencia) {
         Recorrencia recorrenciaSalva = buscarRecorrenciaPeloCodigo(codigo);
 
         BeanUtils.copyProperties(recorrencia, recorrenciaSalva, "codigo");
-        return recorrenciaRepository.save(recorrenciaSalva);
+        return repository.save(recorrenciaSalva);
     }
 
     public Recorrencia buscarRecorrenciaPeloCodigo(Long codigo) {
-        Recorrencia pessoaSalva = recorrenciaRepository.findOne(codigo);
+        Recorrencia pessoaSalva = repository.findOne(codigo);
         if (pessoaSalva == null) {
             throw new EmptyResultDataAccessException(1);
         }

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
 
 import static com.example.algamoney.api.adapter.RecorrenciaAdapter.transformToDTO;
 import static com.example.algamoney.api.adapter.RecorrenciaAdapter.transformToModel;
@@ -26,41 +25,46 @@ import static com.example.algamoney.api.adapter.RecorrenciaAdapter.transformToMo
 public class RecorrenciaResource {
 
     @Autowired
-    private RecorrenciaRepository recorrenciaRepository;
+    private RecorrenciaRepository repository;
 
     @Autowired
-    private RecorrenciaService recorrenciaService;
+    private RecorrenciaService service;
 
     @Autowired
     private ApplicationEventPublisher publisher;
 
+    @GetMapping("/total")
+    public int total() {
+        return service.total();
+    }
+
     @PostMapping
     public ResponseEntity<RecorrenciaDTO> criar(@Valid @RequestBody RecorrenciaDTO dto, HttpServletResponse response) {
-        Recorrencia recorrenciaSalva = recorrenciaService.salvar(transformToModel(dto));
+        Recorrencia recorrenciaSalva = service.salvar(transformToModel(dto));
         publisher.publishEvent(new RecursoCriadoEvent(this, response, recorrenciaSalva.getCodigo()));
         return ResponseEntity.status(HttpStatus.CREATED).body(transformToDTO(recorrenciaSalva));
     }
 
     @GetMapping
     public Page<Recorrencia> pesquisar(@RequestParam(required = false, defaultValue = "%") String nome, Pageable pageable) {
-        return recorrenciaRepository.findByNomeContaining(nome, pageable);
+        return repository.findByNomeContaining(nome, pageable);
     }
 
     @GetMapping("/{codigo}")
     public ResponseEntity<Recorrencia> buscarPeloCodigo(@PathVariable Long codigo) {
-        Recorrencia recorrencia = recorrenciaRepository.findOne(codigo);
+        Recorrencia recorrencia = repository.findOne(codigo);
         return recorrencia != null ? ResponseEntity.ok(recorrencia) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{codigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long codigo) {
-        recorrenciaRepository.delete(codigo);
+        repository.delete(codigo);
     }
 
     @PutMapping("/{codigo}")
     public ResponseEntity<Recorrencia> atualizar(@PathVariable Long codigo, @Valid @RequestBody Recorrencia recorrencia) {
-        Recorrencia recorrenciaSalva = recorrenciaService.atualizar(codigo, recorrencia);
+        Recorrencia recorrenciaSalva = service.atualizar(codigo, recorrencia);
         return ResponseEntity.ok(recorrenciaSalva);
     }
 

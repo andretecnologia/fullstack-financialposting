@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.example.algamoney.api.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,15 @@ public class CategoriaResource {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+
+	@Autowired
+	private CategoriaService service;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
+
+	@GetMapping("/total")
+	public int total() { return service.total(); }
 	
 	@GetMapping
 	public List<Categoria> listar() {

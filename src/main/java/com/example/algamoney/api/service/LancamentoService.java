@@ -1,6 +1,6 @@
 package com.example.algamoney.api.service;
 
-import org.apache.commons.lang3.StringUtils;
+import com.example.algamoney.api.repository.CategoriaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,14 +11,22 @@ import com.example.algamoney.api.repository.LancamentoRepository;
 import com.example.algamoney.api.repository.PessoaRepository;
 import com.example.algamoney.api.service.exception.PessoaInexistenteOuInativaException;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class LancamentoService {
-	
+
+	@Autowired
+	private LancamentoRepository repository;
+
 	@Autowired
 	private PessoaRepository pessoaRepository;
-	
-	@Autowired 
-	private LancamentoRepository lancamentoRepository;
+
+	@Autowired
+	private CategoriaRepository categoriaRepository;
+
+	public int total(){ return repository.total(); }
 
 	public Lancamento salvar(Lancamento lancamento) {
 		Pessoa pessoa = pessoaRepository.findOne(lancamento.getPessoa().getCodigo());
@@ -26,7 +34,7 @@ public class LancamentoService {
 			throw new PessoaInexistenteOuInativaException();
 		}
 		
-		return lancamentoRepository.save(lancamento);
+		return repository.save(lancamento);
 	}
 
 	public Lancamento atualizar(Long codigo, Lancamento lancamento) {
@@ -37,7 +45,7 @@ public class LancamentoService {
 
 		BeanUtils.copyProperties(lancamento, lancamentoSalvo, "codigo");
 
-		return lancamentoRepository.save(lancamentoSalvo);
+		return repository.save(lancamentoSalvo);
 	}
 
 	private void validarPessoa(Lancamento lancamento) {
@@ -52,7 +60,7 @@ public class LancamentoService {
 	}
 
 	private Lancamento buscarLancamentoExistente(Long codigo) {
-		Lancamento lancamentoSalvo = lancamentoRepository.findOne(codigo);
+		Lancamento lancamentoSalvo = repository.findOne(codigo);
 		if (lancamentoSalvo == null) {
 			throw new IllegalArgumentException();
 		}

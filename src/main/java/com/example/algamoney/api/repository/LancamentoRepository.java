@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.algamoney.api.model.Lancamento;
 import com.example.algamoney.api.repository.lancamento.LancamentoRepositoryQuery;
+import org.springframework.data.jpa.repository.Query;
 
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long>, LancamentoRepositoryQuery {
-
+    @Query("select count(l) from Lancamento l")
+    public int total();
 }

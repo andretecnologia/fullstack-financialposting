@@ -36,7 +36,7 @@ public class LancamentoResource {
 	private LancamentoRepository lancamentoRepository;
 	
 	@Autowired
-	private LancamentoService lancamentoService;
+	private LancamentoService service;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -56,7 +56,7 @@ public class LancamentoResource {
 	}
 	@PostMapping
 	public ResponseEntity<Lancamento> criar(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response) {
-		Lancamento lancamentoSalvo = lancamentoService.salvar(lancamento);
+		Lancamento lancamentoSalvo = service.salvar(lancamento);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalvo.getCodigo()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
 	}
@@ -78,7 +78,7 @@ public class LancamentoResource {
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lancamento) {
 		try {
-			Lancamento lancamentoSalvo = lancamentoService.atualizar(codigo, lancamento);
+			Lancamento lancamentoSalvo = service.atualizar(codigo, lancamento);
 			return ResponseEntity.ok(lancamentoSalvo);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.notFound().build();
@@ -93,6 +93,11 @@ public class LancamentoResource {
 	@GetMapping("/estatisticas/por-dia")
 	public List<LancamentoEstatisticaDia> porDia(){
 		return this.lancamentoRepository.porDia(LocalDate.now());
+	}
+
+	@GetMapping("/total")
+	public int total() {
+		return service.total();
 	}
 	
 }
