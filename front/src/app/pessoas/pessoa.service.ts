@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 
 import { Pessoa, Estado, Cidade } from './../core/model';
+import { environment } from '../../environments/environment';
 
 export class PessoaFiltro {
   nome: string;
@@ -13,16 +14,17 @@ export class PessoaFiltro {
 
 @Injectable()
 export class PessoaService {
+  baseUrl = environment.baseUrl;
 
   pessoasUrl: string;
   cidadesUrl: string;
   estadosUrl: string;
 
-  constructor(private http: Http) { 
+  constructor(private http: Http) {
 
-    this.pessoasUrl = `http://localhost:8080/pessoas`;
-    this.estadosUrl = `http://localhost:8080/estados`;
-    this.cidadesUrl = `http://localhost:8080/cidades`;
+    this.pessoasUrl = this.baseUrl + '/pessoas';
+    this.estadosUrl =  this.baseUrl + '/estados';
+    this.cidadesUrl =  this.baseUrl + '/cidades';
 }
 
   pesquisar(filtro: PessoaFiltro): Promise<any> {

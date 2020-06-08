@@ -5,25 +5,27 @@ import { Injectable } from '@angular/core';
 import 'rxjs/operator/toPromise';
 import * as moment from 'moment';
 
+
 import { environment } from './../../environments/environment';
 
 @Injectable()
 export class DashboardService {
 
   lancamentosUrl: string;
+  baseUrl = environment.baseUrl;
 
   constructor(private http: Http) {
-    this.lancamentosUrl = `http://localhost:8080/lancamentos`;
+    this.lancamentosUrl = this.baseUrl + '/lancamentos';
   }
 
   lancamentosPorCategoria(): Promise<Array<any>> {
-    return this.http.get(`http://localhost:8080/lancamentos/estatisticas/por-categoria`)
+    return this.http.get(this.lancamentosUrl = this.baseUrl + '/lancamentos/estatisticas/por-categoria')
       .toPromise()
       .then(response => response.json());
   }
 
   lancamentosPorDia(): Promise<Array<any>> {
-    return this.http.get(`http://localhost:8080/lancamentos/estatisticas/por-dia`)
+    return this.http.get(this.lancamentosUrl = this.baseUrl + '/lancamentos/estatisticas/por-dia')
       .toPromise()
       .then(response => {
         const dados = response.json();
@@ -40,7 +42,7 @@ export class DashboardService {
   }
 
   servicePessoas(): Promise<any> {
-    return this.http.get(`http://localhost:8080/pessoas/total`)
+    return this.http.get(this.lancamentosUrl = this.baseUrl + '/pessoas/total')
     .toPromise()
     .then(response => {
       const responseJson = response.json();
@@ -52,7 +54,7 @@ export class DashboardService {
   }
 
   serviceCategorias(): Promise<any> {
-    return this.http.get(`http://localhost:8080/categorias/total`)
+    return this.http.get(this.lancamentosUrl = this.baseUrl + '/categorias/total')
     .toPromise()
     .then(response => {
       const responseJson = response.json();
@@ -64,7 +66,7 @@ export class DashboardService {
   }
 
   serviceRecorrencias(): Promise<any> {
-    return this.http.get(`http://localhost:8080/recorrencias/total`)
+    return this.http.get(this.lancamentosUrl = this.baseUrl + '/recorrencias/total')
     .toPromise()
     .then(response => {
       const responseJson = response.json();
@@ -76,7 +78,7 @@ export class DashboardService {
   }
 
   serviceLancamentos(): Promise<any> {
-    return this.http.get(`http://localhost:8080/lancamentos/total`)
+    return this.http.get(this.lancamentosUrl = this.baseUrl + '/lancamentos/total')
     .toPromise()
     .then(response => {
       const responseJson = response.json();

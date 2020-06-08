@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { environment } from '../../environments/environment';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class CategoriaService {
 
-  categoriasUrl = 'http://localhost:8080/categorias';
+  baseUrl = environment.baseUrl;
+
+  categoriasUrl = this.baseUrl + '/categorias';
 
   constructor(private http: Http) { }
 

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import * as moment from 'moment';
 
 import { Lancamento } from './../core/model';
-
+import { environment } from '../../environments/environment';
 export class LancamentoFiltro {
   descricao: string;
   dataVencimentoInicio: Date;
@@ -16,8 +16,9 @@ export class LancamentoFiltro {
 
 @Injectable()
 export class LancamentoService {
+  baseUrl = environment.baseUrl;
 
-  lancamentosUrl = 'http://localhost:8080/lancamentos';
+  lancamentosUrl = this.baseUrl + '/lancamentos';
 
   constructor(private http: Http) { }
 
