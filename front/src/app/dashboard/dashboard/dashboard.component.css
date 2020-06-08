@@ -1,0 +1,58 @@
+.p-col {
+    height: 80px;
+    margin-right: 10px;
+    border-radius: 10px;
+    font-size: large;
+    text-align: right;
+    color: white;
+}
+
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.box {
+  background-color: lightblue;
+  height: 100px;
+  width: 30%;
+  margin: 8px;
+}
+
+.left {
+  text-align: left;
+}
+
+.a {
+    background-color: lightsalmon;
+}
+.b {
+    background-color: lightblue;
+}
+.c {
+    background-color: lightgreen;
+}
+.d {
+    background-color: lightpink;
+}
+
+.a:hover {
+  background-color: salmon;
+}
+.b:hover  {
+  background-color: blue;
+}
+.c:hover  {
+  background-color: green;
+}
+.d:hover  {
+  background-color: plum;
+}
+
+.custom {
+    font-size: xx-large;
+    font-weight: bold;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}

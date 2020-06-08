@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Forma de Pagamento</h1>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-dataTable [value]="formaPagamento" [responsive]="true"
+          emptyMessage="Nenhuma recorrência encontrada"
+          [lazy]="true" 
+          (onLazyLoad)="aoMudarPagina($event)"
+          #tabela>
+            <p-column field="nome" header="Nome"></p-column>
+            <p-column styleClass="col-acoes">
+              <ng-template let-fpg="rowData" pTemplate="body">
+                <a pButton icon="fa-pencil"
+                  pTooltip="Editar" tooltipPosition="top"
+                  [routerLink]="['/forma-pagamento', fpg.codigo]"></a>
+                <button pButton icon="fa-trash"
+                  pTooltip="Excluir" tooltipPosition="top"
+                  (click)="confirmarExclusao(fpg)"></button>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+      </div>
+    </div>
+  </div>
+</div>

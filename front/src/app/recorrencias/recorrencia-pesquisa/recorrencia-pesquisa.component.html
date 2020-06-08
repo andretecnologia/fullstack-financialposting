@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="ui-g">
+      <form autocomplete="off" (ngSubmit)="pesquisar()">
+        <div class="ui-g-12">
+          <h1>Recorrencias</h1>
+        </div>
+        <div class="ui-g-12 ui-fluid">
+          <label>Nome</label>
+          <input pInputText type="text" name="nome" [(ngModel)]="filtro.nome">
+        </div>
+        <div class="ui-g-12">
+          <button pButton type="submit" label="Pesquisar"></button>
+        </div>
+      </form>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12">
+        <p-dataTable [value]="recorrencias" [responsive]="true"
+          emptyMessage="Nenhuma recorrência encontrada"
+          [paginator]="true" [rows]="filtro.itensPorPagina"
+          [lazy]="true" [totalRecords]="totalRegistros"
+          (onLazyLoad)="aoMudarPagina($event)"
+          #tabela>
+            <p-column field="nome" header="Nome"></p-column>
+            <p-column styleClass="col-acoes">
+              <ng-template let-rec="rowData" pTemplate="body">
+                <a pButton icon="fa-pencil"
+                  pTooltip="Editar" tooltipPosition="top"
+                  [routerLink]="['/recorrencias', rec.codigo]"></a>
+                <button pButton icon="fa-trash"
+                  pTooltip="Excluir" tooltipPosition="top"
+                  (click)="confirmarExclusao(rec)"></button>
+              </ng-template>
+            </p-column>
+          </p-dataTable>
+      </div>
+        <div class="ui-g-12">
+          <a pButton label="Nova Recorrência" routerLink="/recorrencias/nova"></a>
+        </div>
+    </div>
+</div>
